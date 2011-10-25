@@ -81,6 +81,10 @@
  */
 - (void)drawInRect:(CGRect)rect withAlphaMaskGradient:(NSArray*)colors;
 
+/**
+ * Change the opacity of an image
+ */
+- (UIImage *)imageWithAlpha:(CGFloat)alpha;
 
 @end
 #endif

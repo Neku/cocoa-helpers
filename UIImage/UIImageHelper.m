@@ -289,5 +289,21 @@ CGFloat degreesToRadiens(CGFloat degrees){
 	
 }
 
+- (UIImage *)imageWithAlpha:(CGFloat)alpha{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
+	if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+		UIGraphicsBeginImageContextWithOptions(self.size, NO, [[UIScreen mainScreen] scale]);
+	} else {
+		UIGraphicsBeginImageContext(self.size);
+	}
+#else
+	UIGraphicsBeginImageContext(self.size);
+#endif
+    [self drawInRect:CGRectMake(0.0f, 0.0f, self.size.width, self.size.height) blendMode:kCGBlendModeNormal alpha:alpha];
+    UIImage* alphaImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return alphaImage;
+}
+
 @end
 #endif
